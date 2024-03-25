@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+body{
+  background-color: rgba(126, 125, 140, 0.78);
+  overflow-x: hidden;
+  font-family: "EB Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+
+.typing-bar {
+  position: absolute;
+  width: 100rem;
+}
+.input-group {
+  position: absolute;
+  width: 75rem;
+  height: 2rem;
+  bottom: 0;
+  margin-right: 5rem;
+}
+
+.conversations {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+.icone {
+  display: flex;
+  align-items: center;
+}
+
+.bot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.user-picture {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.username {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.user-text {
+  display: flex;
+  justify-content: flex-end;
+}
