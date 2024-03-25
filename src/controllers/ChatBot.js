@@ -70,8 +70,6 @@ const ChatBot = class {
         if (messageText.trim().toLowerCase() === 'hello') {
           this.sendBotResponse('Hello, how can I assist you today?');
         }
-      } else {
-        console.error("Error: '.messages' container not found");
       }
 
       resolve();
@@ -84,8 +82,6 @@ const ChatBot = class {
     if (messagesContainer) {
       const botResponseHTML = viewBotMessage(botAnswer);
       messagesContainer.insertAdjacentHTML('beforeend', botResponseHTML);
-    } else {
-      console.error("Error: '.messages' container not found");
     }
   }
 };
