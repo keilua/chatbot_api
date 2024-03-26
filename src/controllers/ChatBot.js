@@ -21,20 +21,12 @@ const ChatBot = class {
         <div class="col-2">${viewListBots()}</div>
           <div class="col-10 overflow-hidden bg-gradient">
           <div class="row conversations">
-          <div class="messages"></div>
-          <div class="row">
-            <div class="col-6">${viewBotMessage('Hello, how can I assist you today?')}</div>
+            <div class="messages"></div>
           </div>
-          <div class="row">
-            <div class="col-6"></div>
-            <div class="col-6">${viewUserMessage()}</div>
+          <div class="row typing-bar">
+            <div class="input-group">${viewBar()}</div>
           </div>
-        </div>
-            <div class="row typing-bar">
-              <div class="input-group">${viewBar()}</div>
-            </div>
-          </div> 
-        </div>
+        </div> 
       </div>
     `);
   }
@@ -80,8 +72,10 @@ const ChatBot = class {
     const messagesContainer = document.querySelector('.messages');
 
     if (messagesContainer) {
-      const botResponseHTML = viewBotMessage(botAnswer);
-      messagesContainer.insertAdjacentHTML('beforeend', botResponseHTML);
+      if (botAnswer !== undefined) {
+        const botResponseHTML = viewBotMessage(botAnswer);
+        messagesContainer.insertAdjacentHTML('beforeend', botResponseHTML);
+      }
     }
   }
 };
