@@ -77,7 +77,7 @@ const ChatBot = class {
         messagesContainer.insertAdjacentHTML('beforeend', botResponseHTML);
       }
     }
-  }
-};
+  };
+}
 
 export default ChatBot;
