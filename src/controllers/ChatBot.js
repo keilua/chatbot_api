@@ -1,4 +1,4 @@
-import axios from 'axios';//error
+import axios from 'axios';
 import viewNav from '../views/nav';
 import viewBar from '../views/bar';
 import viewListBots from '../views/Chatbot/list-bots';
@@ -80,14 +80,15 @@ const ChatBot = class {
     }
   };
 
-  async function getUser() {
+  async getMesssages() {
     try {
-      const response = await axios.get('/user?ID=12345');
+      const response = axios.get('http://localhost/messages');
       console.log(response);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
+
 }
 
 export default ChatBot;
