@@ -34,7 +34,8 @@ const ChatBot = class {
 
   run() {
     this.el.innerHTML = this.render();
-    this.handleOnClickSendMessage(); 
+    this.handleOnClickSendMessage();
+    this.getMesssages();
   }
 
   handleOnClickSendMessage() {
@@ -78,17 +79,16 @@ const ChatBot = class {
         messagesContainer.insertAdjacentHTML('beforeend', botResponseHTML);
       }
     }
-  };
+  }
 
   async getMesssages() {
     try {
       const response = axios.get('http://localhost/messages');
       console.log(response);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
-  };
-
-}
+  }
+};
 
 export default ChatBot;
