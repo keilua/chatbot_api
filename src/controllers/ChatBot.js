@@ -1,3 +1,4 @@
+import axios from 'axios';//error
 import viewNav from '../views/nav';
 import viewBar from '../views/bar';
 import viewListBots from '../views/Chatbot/list-bots';
@@ -33,7 +34,7 @@ const ChatBot = class {
 
   run() {
     this.el.innerHTML = this.render();
-    this.handleOnClickSendMessage();
+    this.handleOnClickSendMessage(); 
   }
 
   handleOnClickSendMessage() {
@@ -78,6 +79,15 @@ const ChatBot = class {
       }
     }
   };
+
+  async function getUser() {
+    try {
+      const response = await axios.get('/user?ID=12345');
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
 
 export default ChatBot;
