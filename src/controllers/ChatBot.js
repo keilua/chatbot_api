@@ -71,8 +71,8 @@ const ChatBot = class {
   }
 
   searchWikipediaSummary(searchTerm) {
-    axios.get('https://fr.wikipedia.org/api/rest_v1/page/summary/' + searchTerm)
-      .then(response => {
+    axios.get(`https://fr.wikipedia.org/api/rest_v1/page/summary/${searchTerm}`)
+      .then((response) => {
         const summary = response.data.extract;
         if (summary) {
           this.sendBotResponse(summary);
@@ -80,7 +80,7 @@ const ChatBot = class {
           this.sendBotResponse('Sorry, I could not find a summary for that term.');
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching Wikipedia data:', error);
         this.sendBotResponse('Sorry, I encountered an error while fetching data from Wikipedia.');
       });
@@ -97,14 +97,14 @@ const ChatBot = class {
         origin: '*'
       }
     })
-    .then(response => {
-      const pageTitle = response.data.query.random[0].title;
-      this.sendBotResponse(`Here's a random Wikipedia article for you: ${pageTitle}`);
-    })
-    .catch(error => {
-      console.error('Error fetching Wikipedia data:', error);
-      this.sendBotResponse('Sorry, I encountered an error while fetching data from Wikipedia.');
-    });
+      .then((response) => {
+        const pageTitle = response.data.query.random[0].title;
+        this.sendBotResponse(`Here's a random Wikipedia article for you: ${pageTitle}`);
+      })
+      .catch((error) => {
+        console.error('Error fetching Wikipedia data:', error);
+        this.sendBotResponse('Sorry, I encountered an error while fetching data from Wikipedia.');
+      });
   }
 
   sendBotResponse(botAnswer) {
@@ -120,7 +120,7 @@ const ChatBot = class {
 
   async getMesssages() {
     try {
-      const response = axios.get('http://localhost/messages');
+      const response = await axios.get('http://localhost/messages');
       console.log(response);
     } catch (error) {
       console.log(error);
