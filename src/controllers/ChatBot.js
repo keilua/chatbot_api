@@ -1,3 +1,4 @@
+import axios from 'axios';
 import viewNav from '../views/nav';
 import viewBar from '../views/bar';
 import viewListBots from '../views/Chatbot/list-bots';
@@ -34,6 +35,7 @@ const ChatBot = class {
   run() {
     this.el.innerHTML = this.render();
     this.handleOnClickSendMessage();
+    this.getMesssages();
   }
 
   handleOnClickSendMessage() {
@@ -76,6 +78,15 @@ const ChatBot = class {
         const botResponseHTML = viewBotMessage(botAnswer);
         messagesContainer.insertAdjacentHTML('beforeend', botResponseHTML);
       }
+    }
+  }
+
+  async getMesssages() {
+    try {
+      const response = axios.get('http://localhost/messages');
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
   }
 };
