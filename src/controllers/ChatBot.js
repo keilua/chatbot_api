@@ -37,21 +37,26 @@ const ChatBot = class {
   run() {
     this.el.innerHTML = this.render();
     this.handleOnClickSendMessage();
-    this.getMesssages();
   }
 
   handleOnClickSendMessage() {
     const sendMessageButton = document.getElementById('sendMessageButton');
     const messageInput = document.getElementById('messageInput');
 
-    sendMessageButton.addEventListener('click', () => {
+    const sendMessage = () => {
       const messageText = messageInput.value.trim();
 
       if (messageText !== '') {
         this.sendMessage('Ange', messageText);
         messageInput.value = '';
       }
+    };
+    messageInput.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
     });
+    sendMessageButton.addEventListener('click', sendMessage);
   }
 
   sendMessage(username, messageText) {
@@ -61,7 +66,9 @@ const ChatBot = class {
       const messageHTML = viewUserMessage(username, messageText);
       messagesContainer.insertAdjacentHTML('beforeend', messageHTML);
 
-      if (messageText.trim().toLowerCase().startsWith('wiki:')) {
+      if (messageText.trim().toLowerCase() === 'infos') {
+        this.getMesssages();
+      } else if (messageText.trim().toLowerCase().startsWith('wiki:')) {
         const searchTerm = messageText.substring(5).trim();
         this.searchWikipediaSummary(searchTerm);
       } else if (messageText.trim().toLowerCase() === 'wiki') {
@@ -121,7 +128,8 @@ const ChatBot = class {
   async getMesssages() {
     try {
       const response = await axios.get('http://localhost/messages');
-      console.log(response);
+      const responseData = JSON.stringify(response.data);
+      this.sendBotResponse(responseData);
     } catch (error) {
       console.log(error);
     }
