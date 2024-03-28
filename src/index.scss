@@ -1,17 +1,18 @@
 @charset "utf-8";
 
 body{
+  height: 100vh;
   background-color: rgba(126, 125, 140, 0.78);
   overflow-x: hidden;
   font-family: "EB Garamond", serif;
   font-optical-sizing: auto;
-  font-weight: weight;
   font-style: normal;
 }
 
 .typing-bar {
   position: absolute;
-  width: 100rem;
+  width: 60rem;
+  margin-left: 150px;
 }
 .input-group {
   position: absolute;
@@ -50,4 +51,8 @@ body{
 .user-text {
   display: flex;
   justify-content: flex-end;
+}
+
+#root {
+  height: 100vh;
 }
