@@ -66,13 +66,16 @@ const ChatBot = class {
       const messageHTML = viewUserMessage(username, messageText);
       messagesContainer.insertAdjacentHTML('beforeend', messageHTML);
 
-      if (messageText.trim().toLowerCase() === 'infos') {
+      const trimmedMessage = messageText.trim().toLowerCase();
+      if (trimmedMessage === 'infos') {
         this.getMesssages();
-      } else if (messageText.trim().toLowerCase().startsWith('wiki:')) {
-        const searchTerm = messageText.substring(5).trim();
+      } else if (trimmedMessage.startsWith('wiki:')) {
+        const searchTerm = trimmedMessage.substring(5).trim();
         this.searchWikipediaSummary(searchTerm);
-      } else if (messageText.trim().toLowerCase() === 'wiki') {
+      } else if (trimmedMessage === 'wiki') {
         this.searchRandomWikipedia();
+      } else if (trimmedMessage === 'joke') {
+        this.getChuckNorrisJoke();
       }
     }
   }
@@ -132,6 +135,17 @@ const ChatBot = class {
       this.sendBotResponse(responseData);
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async getChuckNorrisJoke() {
+    try {
+      const response = await axios.get('https://api.chucknorris.io/jokes/random');
+      const joke = response.data.value;
+      this.sendBotResponse(joke);
+    } catch (error) {
+      console.error('Error fetching Chuck Norris joke:', error);
+      this.sendBotResponse('Sorry, I encountered an error while fetching a Chuck Norris joke.');
     }
   }
 };
