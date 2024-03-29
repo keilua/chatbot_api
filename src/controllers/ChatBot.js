@@ -76,6 +76,8 @@ const ChatBot = class {
         this.searchRandomWikipedia();
       } else if (trimmedMessage === 'joke') {
         this.getChuckNorrisJoke();
+      } else {
+        this.sendBotResponse('Patrick', 'Sorry, I do not understand.');
       }
     }
   }
@@ -85,14 +87,14 @@ const ChatBot = class {
       .then((response) => {
         const summary = response.data.extract;
         if (summary) {
-          this.sendBotResponse(summary);
+          this.sendBotResponse('Wiki', summary);
         } else {
-          this.sendBotResponse('Sorry, I could not find a summary for that term.');
+          this.sendBotResponse('Wiki', 'Sorry, I could not find a summary for that term.');
         }
       })
       .catch((error) => {
         console.error('Error fetching Wikipedia data:', error);
-        this.sendBotResponse('Sorry, I encountered an error while fetching data from Wikipedia.');
+        this.sendBotResponse('Wiki', 'Sorry, I encountered an error while fetching data from Wikipedia.');
       });
   }
 
@@ -103,26 +105,26 @@ const ChatBot = class {
         format: 'json',
         list: 'random',
         rnlimit: 1,
-        rnnamespace: 0,
         origin: '*'
       }
     })
       .then((response) => {
         const pageTitle = response.data.query.random[0].title;
-        this.sendBotResponse(`Here's a random Wikipedia article for you: ${pageTitle}`);
+        const articleUrl = `https://fr.wikipedia.org/wiki/${encodeURIComponent(pageTitle)}`;
+        this.sendBotResponse('Wiki', `Here's a random Wikipedia article for you: <a href="${articleUrl}" target="_blank">${pageTitle}</a>`);
       })
       .catch((error) => {
         console.error('Error fetching Wikipedia data:', error);
-        this.sendBotResponse('Sorry, I encountered an error while fetching data from Wikipedia.');
+        this.sendBotResponse('Wiki', 'Sorry, I encountered an error while fetching data from Wikipedia.');
       });
   }
 
-  sendBotResponse(botAnswer) {
+  sendBotResponse(botName, botAnswer) {
     const messagesContainer = document.querySelector('.messages');
 
     if (messagesContainer) {
       if (botAnswer !== undefined) {
-        const botResponseHTML = viewBotMessage(botAnswer);
+        const botResponseHTML = viewBotMessage(botName, botAnswer);
         messagesContainer.insertAdjacentHTML('beforeend', botResponseHTML);
       }
     }
@@ -130,9 +132,9 @@ const ChatBot = class {
 
   async getMesssages() {
     try {
-      const response = await axios.get('http://localhost/messages');
+      const response = await axios.get('http://localhost/user/1');
       const responseData = JSON.stringify(response.data);
-      this.sendBotResponse(responseData);
+      this.sendBotResponse('Patrick', responseData);
     } catch (error) {
       console.log(error);
     }
@@ -142,10 +144,10 @@ const ChatBot = class {
     try {
       const response = await axios.get('https://api.chucknorris.io/jokes/random');
       const joke = response.data.value;
-      this.sendBotResponse(joke);
+      this.sendBotResponse('Chuck Norris', joke);
     } catch (error) {
       console.error('Error fetching Chuck Norris joke:', error);
-      this.sendBotResponse('Sorry, I encountered an error while fetching a Chuck Norris joke.');
+      this.sendBotResponse('Chuck Norris', 'Sorry, I encountered an error while fetching a Chuck Norris joke.');
     }
   }
 };
