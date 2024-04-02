@@ -3,7 +3,7 @@ export default (botName, message) => (`
   <div class="bot-picture">
     <img src="https://freesvg.org/img/1538298822.png" width="90px">
   </div>
-  <h5 class="card-title">${botName} Response</h5>
+  <h5 class="card-title">${botName}</h5>
   <p class="card-text container-fluid">${message}</p>
   <span>${Date()}</span>
 </div>
