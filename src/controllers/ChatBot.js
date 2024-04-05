@@ -76,10 +76,28 @@ const ChatBot = class {
         this.searchRandomWikipedia();
       } else if (trimmedMessage === 'joke') {
         this.getChuckNorrisJoke();
+      } else if (trimmedMessage === 'hello') {
+        this.sayHelloToAllBots();
+      } else if (trimmedMessage === 'help') {
+        this.displayHelp();
       } else {
-        this.sendBotResponse('Patrick', 'Sorry, I do not understand.');
+        this.sendBotResponse('Patrick', 'Sorry, I do not understand. Try "help" for the available commands');
       }
     }
+  }
+
+  sayHelloToAllBots() {
+    const botNames = ['Patrick', 'Chuck Norris', 'Wiki'];
+    const helloMessage = 'Hello!';
+
+    botNames.forEach((botName) => {
+      this.sendBotResponse(botName, helloMessage);
+    });
+  }
+
+  displayHelp() {
+    const helpMessage = 'Available commands: "infos", "wiki", "joke", "hello".';
+    this.sendBotResponse('System', helpMessage);
   }
 
   searchWikipediaSummary(searchTerm) {

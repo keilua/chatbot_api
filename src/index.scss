@@ -29,6 +29,7 @@ body{
 }
 
 .conversations {
+  margin-right: 0.1px;
   height: 70vh;
   overflow-y: scroll;
 }
@@ -65,5 +66,36 @@ body{
 
 .col-2 {
   height: 70vh;
-  overflow-y: hidden;
+  overflow-y: scroll;
+}
+
+.col-2::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.col-2::-webkit-scrollbar-thumb {
+  background-color: #808080; 
+  border-radius: 10px; 
+}
+
+.col-2::-webkit-scrollbar-track {
+  background-color: #212020; 
+}
+
+.conversations::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.conversations::-webkit-scrollbar-thumb {
+  background-color: #808080; 
+  border-radius: 10px; 
+}
+
+.conversations::-webkit-scrollbar-track {
+  background-color: #212020; 
+}
+
+.card-body img {
+  max-width: 50px;
+  height: auto;
 }
