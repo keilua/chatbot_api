@@ -47,7 +47,7 @@ const ChatBot = class {
       const messageText = messageInput.value.trim();
 
       if (messageText !== '') {
-        this.sendMessage('Ange', messageText);
+        this.sendMessage(messageText);
         messageInput.value = '';
       }
     };
@@ -59,11 +59,11 @@ const ChatBot = class {
     sendMessageButton.addEventListener('click', sendMessage);
   }
 
-  sendMessage(username, messageText) {
+  sendMessage(messageText) {
     const messagesContainer = document.querySelector('.messages');
 
     if (messagesContainer) {
-      const messageHTML = viewUserMessage(username, messageText);
+      const messageHTML = viewUserMessage(messageText);
       messagesContainer.insertAdjacentHTML('beforeend', messageHTML);
 
       const trimmedMessage = messageText.trim().toLowerCase();
